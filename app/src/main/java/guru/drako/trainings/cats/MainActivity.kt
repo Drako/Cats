@@ -1,11 +1,13 @@
 package guru.drako.trainings.cats
 
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -30,6 +32,10 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
 
+    launch {
+      catApi.getCatBreeds()
+    }
+
     catList.adapter = catImageAdapter
 
     when (resources.configuration.orientation) {
@@ -53,8 +59,16 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
   }
 
   private fun loadImages() {
+    val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+
+    val breedId = prefs.getString(Preferences.Breed, null)?.takeUnless { it.isBlank() }
+    val categoryId = prefs.getString(Preferences.Category, null)?.toIntOrNull()
+    val imageCount = prefs.getString(Preferences.ImageCount, null)?.toIntOrNull() ?: 6
+
     launch {
-      catImageAdapter.imageUrls = catApi.getCatInfos().map(CatInfo::url)
+      catImageAdapter.imageUrls =
+        catApi.getCatInfos(limit = imageCount, breedId = breedId, categoryId = categoryId)
+          .map(CatInfo::url)
       swiper.isRefreshing = false
     }
   }
@@ -73,8 +87,9 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     when (item.itemId) {
       R.id.settings -> {
-        logInfo("Clicked on settings menu item.")
-        showToast(R.string.settings, LENGTH_SHORT)
+        // logInfo("Clicked on settings menu item.")
+        // showToast(R.string.settings, LENGTH_SHORT)
+        startActivity(Intent(this, SettingsActivity::class.java))
       }
     }
     return super.onOptionsItemSelected(item)

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+                  xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+            android:title="@string/filters">
+
+        <DropDownPreference
+                android:defaultValue=""
+                android:title="@string/breed" android:key="preference_breed"
+                android:icon="@drawable/ic_paw_solid" app:useSimpleSummaryProvider="true"/>
+
+        <DropDownPreference
+                android:defaultValue=""
+                android:entries="@array/category_entries"
+                android:entryValues="@array/category_entryValues"
+                android:title="@string/category" android:key="preference_category"
+                android:icon="@drawable/ic_folder_solid" app:useSimpleSummaryProvider="true"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+            android:title="@string/general">
+
+        <EditTextPreference
+                android:defaultValue="6"
+                android:selectAllOnFocus="true"
+                android:singleLine="true"
+                android:inputType="number"
+                android:title="@string/image_count" android:key="preference_image_count"
+                android:icon="@drawable/ic_hashtag_solid"
+                app:useSimpleSummaryProvider="true"/>
+    </PreferenceCategory>
+</PreferenceScreen>

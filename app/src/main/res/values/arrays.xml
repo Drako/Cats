@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="category_entries">
+        <item/>
+        <item>Hats</item>
+        <item>Space</item>
+        <item>Sunglasses</item>
+        <item>Boxes</item>
+        <item>Ties</item>
+        <item>Sinks</item>
+        <item>Clothes</item>
+    </string-array>
+    <string-array name="category_entryValues">
+        <item/>
+        <item>1</item>
+        <item>2</item>
+        <item>4</item>
+        <item>5</item>
+        <item>7</item>
+        <item>14</item>
+        <item>15</item>
+    </string-array>
+</resources>

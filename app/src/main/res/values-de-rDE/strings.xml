@@ -2,4 +2,9 @@
 <resources>
     <string name="app_name">Katzen</string>
     <string name="settings">Einstellungen</string>
+    <string name="filters">Filter</string>
+    <string name="breed">Rasse</string>
+    <string name="category">Kategorie</string>
+    <string name="general">Allgemein</string>
+    <string name="image_count">Anzahl Bilder</string>
 </resources>

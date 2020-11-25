@@ -2,4 +2,9 @@
 <resources>
     <string name="app_name">Кошки</string>
     <string name="settings">Настройки</string>
+    <string name="category">Категория</string>
+    <string name="breed">Порода</string>
+    <string name="filters">Фильтры</string>
+    <string name="general">Генеральная</string>
+    <string name="image_count">Количество картинок</string>
 </resources>

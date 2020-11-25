@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="category_entries">
+        <item/>
+        <item>Hüte</item>
+        <item>Weltraum</item>
+        <item>Sonnenbrillen</item>
+        <item>Schachteln</item>
+        <item>Krawatten</item>
+        <item>Spülbecken</item>
+        <item>Kleidung</item>
+    </string-array>
+</resources>

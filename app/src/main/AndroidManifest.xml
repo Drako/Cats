@@ -32,6 +32,12 @@
                 android:parentActivityName=".MainActivity"
                 android:screenOrientation="fullSensor"
                 android:theme="@style/Theme.AppCompat" />
+
+        <activity
+                android:name=".SettingsActivity"
+                android:parentActivityName=".MainActivity"
+                android:screenOrientation="fullSensor"
+                android:theme="@style/Theme.AppCompat" />
     </application>
 
 </manifest>

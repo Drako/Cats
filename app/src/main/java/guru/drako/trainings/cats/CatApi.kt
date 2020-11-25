@@ -10,7 +10,7 @@ data class CatInfo(
 )
 
 data class BreedInfo(
-  val id: Int,
+  val id: String,
   val name: String
 )
 
@@ -19,6 +19,8 @@ data class CategoryInfo(
   val name: String
 )
 
+typealias RequestConfigurator = HttpRequestBuilder.() -> Unit
+
 class CatApi {
   private val client = HttpClient(Android) {
     install(JsonFeature) {
@@ -26,20 +28,34 @@ class CatApi {
     }
   }
 
-  suspend fun getCatInfos(limit: Int = 6, breedId: Int? = null, categoryId: Int? = null): List<CatInfo> {
-    return client
-      .get("https://api.thecatapi.com/v1/images/search") {
-        parameter("limit", limit)
-        parameter("breed_ids", breedId)
-        parameter("category_ids", categoryId)
-      }
+  companion object {
+    private const val BASE_URL = "https://api.thecatapi.com/v1"
+
+    private const val API_KEY = "cdb00885-1904-43a6-95f5-49a32d12a1f1"
+
+    var cachedBreeds: List<BreedInfo> = listOf()
+      private set
   }
+
+  private suspend inline fun <reified T> get(path: String, block: RequestConfigurator = {}): T =
+    client.get("$BASE_URL/$path") {
+      header("x-api-key", API_KEY)
+      block()
+    }
+
+  suspend fun getCatInfos(limit: Int = 6, breedId: String? = null, categoryId: Int? = null): List<CatInfo> =
+    get("images/search") {
+      parameter("limit", limit)
+      parameter("breed_ids", breedId)
+      parameter("category_ids", categoryId)
+    }
 
   suspend fun getCatBreeds(): List<BreedInfo> {
-    return client.get("https://api.thecatapi.com/v1/breeds")
+    if (cachedBreeds.isEmpty()) {
+      cachedBreeds = get("breeds")
+    }
+    return cachedBreeds
   }
 
-  suspend fun getCategories(): List<CategoryInfo> {
-    return client.get("https://api.thecatapi.com/v1/categories")
-  }
+  suspend fun getCategories(): List<CategoryInfo> = get("categories")
 }
