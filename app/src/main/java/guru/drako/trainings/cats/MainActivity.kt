@@ -5,16 +5,12 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
   private val catImageAdapter = CatImageAdapter(isListItem = true)
@@ -32,7 +28,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
 
-    launch {
+    launch(Dispatchers.IO) {
       catApi.getCatBreeds()
     }
 
@@ -61,7 +57,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
   private fun loadImages() {
     val prefs = PreferenceManager.getDefaultSharedPreferences(this)
 
-    val breedId = prefs.getString(Preferences.Breed, null)?.takeUnless { it.isBlank() }
+    val breedId = prefs.getString(Preferences.Breed, null)
     val categoryId = prefs.getString(Preferences.Category, null)?.toIntOrNull()
     val imageCount = prefs.getString(Preferences.ImageCount, null)?.toIntOrNull() ?: 6
 
