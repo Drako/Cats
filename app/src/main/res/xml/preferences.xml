@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
+    <DropDownPreference android:icon="@drawable/ic_paw_solid" android:key="preference_breed"
+                        android:title="@string/breed" app:useSimpleSummaryProvider="true"/>
+    <DropDownPreference android:icon="@drawable/ic_folder_solid" android:key="preference_category"
+                        android:title="@string/category" app:useSimpleSummaryProvider="true"/>
+</PreferenceScreen>

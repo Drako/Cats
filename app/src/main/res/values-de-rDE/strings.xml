@@ -2,4 +2,6 @@
 <resources>
     <string name="app_name">Katzen</string>
     <string name="settings">Einstellungen</string>
+    <string name="breed">Rasse</string>
+    <string name="category">Kategorie</string>
 </resources>

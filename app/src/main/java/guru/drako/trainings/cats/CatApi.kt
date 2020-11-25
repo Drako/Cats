@@ -10,7 +10,7 @@ data class CatInfo(
 )
 
 data class BreedInfo(
-  val id: Int,
+  val id: String,
   val name: String
 )
 
@@ -26,7 +26,7 @@ class CatApi {
     }
   }
 
-  suspend fun getCatInfos(limit: Int = 6, breedId: Int? = null, categoryId: Int? = null): List<CatInfo> {
+  suspend fun getCatInfos(limit: Int = 6, breedId: String? = null, categoryId: Int? = null): List<CatInfo> {
     return client
       .get("https://api.thecatapi.com/v1/images/search") {
         parameter("limit", limit)
