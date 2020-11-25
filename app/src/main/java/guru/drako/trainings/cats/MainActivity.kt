@@ -1,10 +1,13 @@
 package guru.drako.trainings.cats
 
 import android.content.Intent
+import android.content.Intent.*
 import android.content.res.Configuration
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
@@ -18,6 +21,8 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 
   private val IMAGE_URLS_KEY = "ImageUrls"
 
+  private val GET_FILE = 1337
+
   private var RecyclerView.spanCount: Int
     get() = (layoutManager as GridLayoutManager).spanCount
     set(value) {
@@ -27,6 +32,10 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
+
+    if (intent.action == ACTION_SEND) {
+      showToast("Got file of type: ${intent.extras?.get(EXTRA_STREAM) as Uri}", LENGTH_SHORT)
+    }
 
     launch(Dispatchers.IO) {
       catApi.getCatBreeds()
@@ -80,12 +89,34 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
     return true
   }
 
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    requestCode.takeIf { it == GET_FILE }
+      ?.takeIf { resultCode == RESULT_OK }
+      ?.let { data?.data }
+      ?.also { uri ->
+        showToast("Got file $uri", LENGTH_SHORT)
+      }
+
+    super.onActivityResult(requestCode, resultCode, data)
+  }
+
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     when (item.itemId) {
       R.id.settings -> {
         // logInfo("Clicked on settings menu item.")
         // showToast(R.string.settings, LENGTH_SHORT)
         startActivity(Intent(this, SettingsActivity::class.java))
+      }
+      R.id.open -> {
+
+        val openIntent = Intent().apply {
+          action = ACTION_GET_CONTENT
+          putExtra(EXTRA_LOCAL_ONLY, true)
+          type = "*/*"
+          addCategory(CATEGORY_OPENABLE)
+        }
+
+        startActivityForResult(openIntent, GET_FILE)
       }
     }
     return super.onOptionsItemSelected(item)
