@@ -4,12 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
+import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.squareup.picasso.Picasso
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.synthetic.main.activity_detail.*
+import kotlinx.android.synthetic.main.activity_paging_detail.*
 
 class DetailActivity : AppCompatActivity() {
   @Parcelize
@@ -30,12 +32,6 @@ class DetailActivity : AppCompatActivity() {
 
   private lateinit var state: State
 
-  private fun setCurrentImage(index: Int) {
-    require(index in state.imageUrls.indices)
-    state = State(currentImage = index, imageUrls = state.imageUrls)
-    displayImage()
-  }
-
   private fun displayImage() {
     Picasso.get().load(state.imageUrls[state.currentImage]).into(detailImageView)
   }
@@ -46,7 +42,7 @@ class DetailActivity : AppCompatActivity() {
 
     state = savedInstanceState?.getParcelable(KEY_STATE)
       ?: intent.getParcelableExtra(KEY_STATE)
-      ?: throw IllegalStateException("missing state")
+          ?: throw IllegalStateException("missing state")
 
     displayImage()
   }
@@ -57,9 +53,16 @@ class DetailActivity : AppCompatActivity() {
     super.onSaveInstanceState(outState)
   }
 
+  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    super.onCreateOptionsMenu(menu)
+    menuInflater.inflate(R.menu.top_detail_menu, menu)
+    return true
+  }
+
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     when (item.itemId) {
       android.R.id.home -> onBackPressed()
+      R.id.share -> Sharing.shareImage(context = this, imageUri = state.imageUrls[state.currentImage])
     }
     return true
   }

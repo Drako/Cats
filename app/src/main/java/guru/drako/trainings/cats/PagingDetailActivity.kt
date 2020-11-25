@@ -2,13 +2,24 @@ package guru.drako.trainings.cats
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
+import android.provider.MediaStore
+import android.provider.MediaStore.Images
+import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.squareup.picasso.Picasso
+import com.squareup.picasso.Target
 import kotlinx.android.parcel.Parcelize
+import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.activity_paging_detail.*
+import java.lang.Exception
 
 class PagingDetailActivity : AppCompatActivity() {
   @Parcelize
@@ -55,7 +66,14 @@ class PagingDetailActivity : AppCompatActivity() {
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     when (item.itemId) {
       android.R.id.home -> onBackPressed()
+      R.id.share -> Sharing.shareImage(context = this, imageUri = adapter.imageUrls[pager.currentItem])
     }
+    return true
+  }
+
+  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    super.onCreateOptionsMenu(menu)
+    menuInflater.inflate(R.menu.top_detail_menu, menu)
     return true
   }
 }
