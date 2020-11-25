@@ -7,4 +7,7 @@
     <string name="filters">Фильтры</string>
     <string name="general">Генеральная</string>
     <string name="image_count">Количество картинок</string>
+    <string name="share">Поделись этим</string>
+    <string name="sharing_failed">Изображение не может быть опубликовано.</string>
+    <string name="cat">кошка</string>
 </resources>

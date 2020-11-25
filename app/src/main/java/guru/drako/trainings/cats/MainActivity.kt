@@ -74,9 +74,9 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
     cancel()
   }
 
-  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+  override fun onCreateOptionsMenu(menu: Menu): Boolean {
     super.onCreateOptionsMenu(menu)
-    menuInflater.inflate(R.menu.top_menu, menu)
+    menuInflater.inflate(R.menu.main_top_menu, menu)
     return true
   }
 

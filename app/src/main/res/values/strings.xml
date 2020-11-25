@@ -6,4 +6,7 @@
     <string name="category">Category</string>
     <string name="general">General</string>
     <string name="image_count">Number of images</string>
+    <string name="share">Share</string>
+    <string name="sharing_failed">The image could not be shared.</string>
+    <string name="cat">cat</string>
 </resources>

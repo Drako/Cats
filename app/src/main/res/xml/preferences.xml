@@ -23,8 +23,6 @@
         <EditTextPreference
                 android:defaultValue="6"
                 android:selectAllOnFocus="true"
-                android:singleLine="true"
-                android:inputType="number"
                 android:title="@string/image_count" android:key="preference_image_count"
                 android:icon="@drawable/ic_hashtag_solid"
                 app:useSimpleSummaryProvider="true"/>

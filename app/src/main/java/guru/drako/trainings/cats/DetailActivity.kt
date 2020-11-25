@@ -30,12 +30,6 @@ class DetailActivity : AppCompatActivity() {
 
   private lateinit var state: State
 
-  private fun setCurrentImage(index: Int) {
-    require(index in state.imageUrls.indices)
-    state = State(currentImage = index, imageUrls = state.imageUrls)
-    displayImage()
-  }
-
   private fun displayImage() {
     Picasso.get().load(state.imageUrls[state.currentImage]).into(detailImageView)
   }

@@ -4,7 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
+import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import kotlinx.android.parcel.Parcelize
@@ -52,9 +54,18 @@ class PagingDetailActivity : AppCompatActivity() {
     super.onSaveInstanceState(outState)
   }
 
+  override fun onCreateOptionsMenu(menu: Menu): Boolean {
+    super.onCreateOptionsMenu(menu)
+    menuInflater.inflate(R.menu.detail_top_menu, menu)
+    return true
+  }
+
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     when (item.itemId) {
       android.R.id.home -> onBackPressed()
+      R.id.share -> {
+        Sharing.shareImage(this, adapter.imageUrls[pager.currentItem])
+      }
     }
     return true
   }

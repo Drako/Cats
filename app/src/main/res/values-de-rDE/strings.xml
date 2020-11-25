@@ -7,4 +7,7 @@
     <string name="category">Kategorie</string>
     <string name="general">Allgemein</string>
     <string name="image_count">Anzahl Bilder</string>
+    <string name="share">Teilen</string>
+    <string name="sharing_failed">Das Bild konnte nicht geteilt werden.</string>
+    <string name="cat">katze</string>
 </resources>

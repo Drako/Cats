@@ -11,6 +11,10 @@ inline fun <reified TagType> TagType.logInfo(message: String, tr: Throwable? = n
   Log.i(simpleName<TagType>(), message, tr)
 }
 
+inline fun <reified TagType> TagType.logError(message: String, tr: Throwable? = null) {
+  Log.e(simpleName<TagType>(), message, tr)
+}
+
 fun Context.showToast(message: String, duration: Int) {
   Toast.makeText(this, message, duration).show()
 }
